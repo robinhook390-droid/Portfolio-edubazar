@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alex Morgan — Web Developer</title>
+<title>EduBazar — Web Development Agency</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -13,17 +13,13 @@
     --ink: #0D0D0D;
     --ink-soft: #4A4A4A;
     --ink-muted: #9A9A9A;
-    --accent: #1A1A2E;
     --accent-bright: #E63946;
     --border: #E2E0DA;
-    --card-bg: #FFFFFF;
     --tag-bg: #F0EEE8;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -31,52 +27,106 @@
     overflow-x: hidden;
   }
 
+  /* ── PAGE SYSTEM ── */
+  .page { display: none; min-height: 100vh; }
+  .page.active { display: block; }
+
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 4rem;
-    background: rgba(247, 246, 242, 0.88);
-    backdrop-filter: blur(12px);
+    padding: 1.1rem 4rem;
+    background: rgba(247, 246, 242, 0.92);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
   }
   .nav-logo {
     font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em;
-    color: var(--ink); text-decoration: none;
+    font-weight: 800; font-size: 1.35rem; letter-spacing: -0.03em;
+    color: var(--ink); text-decoration: none; cursor: pointer;
   }
   .nav-logo span { color: var(--accent-bright); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+  .nav-links { display: flex; gap: 0.3rem; list-style: none; align-items: center; }
+  .nav-links button {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
     text-transform: uppercase; color: var(--ink-soft);
-    text-decoration: none; transition: color 0.2s;
+    background: none; border: none; cursor: pointer;
+    padding: 0.45rem 0.9rem; border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
   }
-  .nav-links a:hover { color: var(--ink); }
+  .nav-links button:hover, .nav-links button.active-nav { color: var(--ink); background: rgba(0,0,0,0.05); }
   .nav-cta {
-    background: var(--ink); color: var(--white) !important;
-    padding: 0.55rem 1.4rem; border-radius: 100px;
-    transition: background 0.2s !important;
+    background: var(--ink) !important; color: var(--white) !important;
+    padding: 0.55rem 1.4rem !important; border-radius: 100px !important;
   }
-  .nav-cta:hover { background: var(--accent-bright) !important; color: var(--white) !important; }
+  .nav-cta:hover { background: var(--accent-bright) !important; }
 
-  /* ── HERO ── */
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: var(--ink); color: var(--white);
+    padding: 0.85rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 500;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'DM Sans', sans-serif; text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--accent-bright); transform: translateY(-2px); }
+  .btn-outline {
+    border: 1.5px solid var(--border); color: var(--ink);
+    padding: 0.85rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; background: transparent;
+    transition: border-color 0.2s, transform 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--accent-bright); margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+  }
+  .section-sub {
+    color: var(--ink-soft); font-weight: 300;
+    font-size: 1.05rem; line-height: 1.75; max-width: 540px; margin-top: 0.9rem;
+  }
+  .tag {
+    background: var(--tag-bg); color: var(--ink-soft);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 500;
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ══════════════════════════════════════
+     PAGE 1 — HOME
+  ══════════════════════════════════════ */
+
+  /* HERO */
   .hero {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 4rem;
-    padding-top: 5rem;
-    gap: 4rem;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 0 4rem; padding-top: 5.5rem;
+    gap: 4rem; align-items: center;
+    position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute; top: -30%; right: -10%;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(230,57,70,0.07) 0%, transparent 70%);
+    content: ''; position: absolute; top: -20%; right: -8%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(230,57,70,0.06) 0%, transparent 65%);
     pointer-events: none;
   }
   .hero-badge {
@@ -84,320 +134,158 @@
     background: var(--white); border: 1px solid var(--border);
     padding: 0.4rem 1rem; border-radius: 100px;
     font-size: 0.8rem; font-weight: 500; color: var(--ink-soft);
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.6s ease both;
+    margin-bottom: 1.5rem; animation: fadeUp 0.6s ease both;
   }
-  .hero-badge .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: #22C55E;
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #22C55E;
     animation: pulse-dot 2s infinite;
   }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.6; transform: scale(1.3); }
-  }
+  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+
   .hero h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 5vw, 5rem);
-    font-weight: 800;
-    line-height: 1.05;
+    font-size: clamp(3rem, 4.5vw, 4.8rem);
+    font-weight: 800; line-height: 1.05;
     letter-spacing: -0.03em;
-    color: var(--ink);
     animation: fadeUp 0.7s 0.1s ease both;
   }
-  .hero h1 em {
-    font-style: italic;
-    font-weight: 600;
-    color: var(--accent-bright);
-  }
+  .hero h1 em { font-style: italic; font-weight: 600; color: var(--accent-bright); }
   .hero-sub {
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--ink-soft);
-    max-width: 480px;
+    margin-top: 1.4rem; font-size: 1.1rem; font-weight: 300;
+    line-height: 1.75; color: var(--ink-soft); max-width: 480px;
     animation: fadeUp 0.7s 0.2s ease both;
   }
   .hero-actions {
     display: flex; gap: 1rem; align-items: center;
-    margin-top: 2.5rem;
-    animation: fadeUp 0.7s 0.3s ease both;
+    margin-top: 2.5rem; animation: fadeUp 0.7s 0.3s ease both;
   }
-  .btn-primary {
-    background: var(--ink); color: var(--white);
-    padding: 0.85rem 2rem; border-radius: 100px;
-    font-size: 0.95rem; font-weight: 500;
-    text-decoration: none;
-    transition: transform 0.2s, background 0.2s;
-    display: inline-flex; align-items: center; gap: 0.5rem;
-  }
-  .btn-primary:hover { background: var(--accent-bright); transform: translateY(-2px); }
-  .btn-outline {
-    border: 1.5px solid var(--border); color: var(--ink);
-    padding: 0.85rem 2rem; border-radius: 100px;
-    font-size: 0.95rem; font-weight: 500;
-    text-decoration: none;
-    transition: border-color 0.2s, transform 0.2s;
-    background: transparent;
-  }
-  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
-
   .hero-stats {
-    display: flex; gap: 2.5rem;
-    margin-top: 3.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
+    display: flex; gap: 2.5rem; margin-top: 3.5rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
     animation: fadeUp 0.7s 0.4s ease both;
   }
-  .stat-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem; font-weight: 800;
-    color: var(--ink);
-  }
-  .stat-label {
-    font-size: 0.8rem; color: var(--ink-muted);
-    text-transform: uppercase; letter-spacing: 0.06em;
-    margin-top: 0.1rem;
-  }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; }
+  .stat-label { font-size: 0.78rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.1rem; }
 
-  /* Hero Right — Visual */
+  /* Hero Visual */
   .hero-visual {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: flex; flex-direction: column; gap: 1rem;
     animation: fadeLeft 0.8s 0.3s ease both;
   }
   .hero-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 1.5rem 2rem;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 20px; padding: 1.5rem 2rem;
     box-shadow: 0 4px 24px rgba(0,0,0,0.04);
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .hero-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-  .hero-card-top {
-    display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+  .hero-card-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .hc-icon {
+    width: 44px; height: 44px; background: var(--tag-bg); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
   }
-  .hero-card-icon {
-    width: 44px; height: 44px;
-    background: var(--tag-bg); border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-  }
-  .hero-card-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700; font-size: 1rem;
-  }
-  .hero-card-sub { font-size: 0.8rem; color: var(--ink-muted); }
-  .progress-bar {
-    background: var(--tag-bg); border-radius: 100px; height: 6px;
-    overflow: hidden; margin-top: 0.5rem;
-  }
+  .hc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+  .hc-sub { font-size: 0.8rem; color: var(--ink-muted); }
+  .progress-bar { background: var(--tag-bg); border-radius: 100px; height: 6px; overflow: hidden; margin-top: 0.5rem; }
   .progress-fill {
     height: 100%; border-radius: 100px;
     background: linear-gradient(90deg, var(--ink), var(--accent-bright));
-    animation: growBar 1.5s 0.8s ease both;
-    transform-origin: left;
+    animation: growBar 1.5s 0.8s ease both; transform-origin: left;
   }
-  @keyframes growBar {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-
-  .hero-card-row {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-  }
+  @keyframes growBar { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+  .hero-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .mini-card {
     background: var(--white); border: 1px solid var(--border);
-    border-radius: 16px; padding: 1.2rem;
-    text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-    transition: transform 0.3s;
+    border-radius: 16px; padding: 1.2rem; text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03); transition: transform 0.3s;
   }
   .mini-card:hover { transform: translateY(-3px); }
-  .mini-card-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.8rem; font-weight: 800; color: var(--ink);
-  }
-  .mini-card-label { font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.2rem; }
+  .mini-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; }
+  .mini-label { font-size: 0.75rem; color: var(--ink-muted); margin-top: 0.2rem; }
 
-  /* ── SECTION COMMON ── */
-  section { padding: 6rem 4rem; }
-  .section-label {
-    font-size: 0.75rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--accent-bright);
-    margin-bottom: 0.75rem;
-  }
-  .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 800; letter-spacing: -0.02em;
-    line-height: 1.1;
-  }
-  .section-sub {
-    color: var(--ink-soft); font-weight: 300;
-    font-size: 1.05rem; line-height: 1.7;
-    max-width: 540px; margin-top: 1rem;
-  }
-
-  /* ── SERVICES ── */
+  /* SERVICES */
   .services { background: var(--white); }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3.5rem;
-  }
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
   .service-card {
-    background: var(--bg);
-    border-radius: 20px;
-    padding: 2rem;
-    border: 1px solid var(--border);
+    background: var(--bg); border-radius: 20px; padding: 2rem;
+    border: 1px solid var(--border); position: relative; overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    position: relative;
-    overflow: hidden;
   }
   .service-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 3px;
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
     background: linear-gradient(90deg, var(--ink), var(--accent-bright));
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s;
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
   }
   .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); background: var(--white); }
   .service-card:hover::after { transform: scaleX(1); }
-  .service-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.75rem; font-weight: 700;
-    letter-spacing: 0.1em; color: var(--ink-muted);
-    margin-bottom: 1.5rem;
-  }
-  .service-icon { font-size: 2.2rem; margin-bottom: 1rem; }
-  .service-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.2rem; font-weight: 700;
-    margin-bottom: 0.75rem;
-  }
-  .service-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.6; }
-  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
-  .tag {
-    background: var(--tag-bg); color: var(--ink-soft);
-    padding: 0.25rem 0.7rem; border-radius: 100px;
-    font-size: 0.72rem; font-weight: 500;
-  }
+  .svc-num { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--ink-muted); margin-bottom: 1.5rem; }
+  .svc-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .svc-name { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .svc-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.6; }
+  .svc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
 
-  /* ── PROJECTS ── */
-  .projects-header {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 3rem;
-  }
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
+  /* PROJECTS */
+  .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+  .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
   .project-card {
-    background: var(--white);
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    background: var(--white); border-radius: 20px; border: 1px solid var(--border);
+    overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
   }
   .project-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.1); }
   .project-card.featured { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
   .project-thumb {
-    height: 220px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 4rem;
-    position: relative; overflow: hidden;
+    height: 220px; display: flex; align-items: center; justify-content: center; font-size: 4rem;
   }
   .project-card.featured .project-thumb { height: auto; min-height: 280px; }
-  .thumb-1 { background: linear-gradient(135deg, #F0EEE8, #E2E0DA); }
-  .thumb-2 { background: linear-gradient(135deg, #EEF0F8, #D8DCF0); }
-  .thumb-3 { background: linear-gradient(135deg, #F0F0EE, #E0E0D8); }
-  .project-info { padding: 1.75rem 2rem; }
-  .project-card.featured .project-info { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
-  .project-category {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--accent-bright);
-    margin-bottom: 0.5rem;
+  .thumb-1 { background: linear-gradient(135deg,#F0EEE8,#E2E0DA); }
+  .thumb-2 { background: linear-gradient(135deg,#EEF0F8,#D8DCF0); }
+  .thumb-3 { background: linear-gradient(135deg,#F0F0EE,#E0E0D8); }
+  .proj-info { padding: 1.75rem 2rem; }
+  .project-card.featured .proj-info { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .proj-cat { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 0.5rem; }
+  .proj-name { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  .proj-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; }
+  .proj-link {
+    display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.25rem;
+    font-size: 0.85rem; font-weight: 600; color: var(--ink); text-decoration: none;
+    border-bottom: 1.5px solid var(--ink); padding-bottom: 0.1rem;
+    transition: color 0.2s, border-color 0.2s; cursor: pointer;
   }
-  .project-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem; font-weight: 800;
-    margin-bottom: 0.75rem; letter-spacing: -0.01em;
-  }
-  .project-desc { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.65; }
-  .project-link {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    margin-top: 1.25rem;
-    font-size: 0.85rem; font-weight: 600; color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 0.1rem;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .project-link:hover { color: var(--accent-bright); border-color: var(--accent-bright); }
-  .arrow { transition: transform 0.2s; display: inline-block; }
-  .project-link:hover .arrow { transform: translate(3px, -3px); }
+  .proj-link:hover { color: var(--accent-bright); border-color: var(--accent-bright); }
 
-  /* ── PROCESS ── */
+  /* PROCESS */
   .process { background: var(--white); }
   .process-steps {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 2rem; margin-top: 3.5rem;
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; margin-top: 3.5rem;
     position: relative;
   }
   .process-steps::before {
-    content: '';
-    position: absolute; top: 2rem; left: 10%; right: 10%;
+    content: ''; position: absolute; top: 2rem; left: 10%; right: 10%;
     height: 1px; background: var(--border);
-    z-index: 0;
   }
-  .step {
-    text-align: center; position: relative; z-index: 1;
-  }
+  .step { text-align: center; position: relative; z-index: 1; }
   .step-circle {
-    width: 56px; height: 56px;
-    background: var(--bg); border: 2px solid var(--border);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
+    width: 56px; height: 56px; background: var(--bg); border: 2px solid var(--border);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
     margin: 0 auto 1.2rem;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1rem;
-    transition: background 0.3s, border-color 0.3s;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
   }
-  .step:hover .step-circle {
-    background: var(--ink); border-color: var(--ink); color: var(--white);
-  }
-  .step-name {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem;
-  }
+  .step:hover .step-circle { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .step-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
   .step-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; }
 
-  /* ── TESTIMONIALS ── */
-  .testimonials-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem; margin-top: 3rem;
-  }
+  /* TESTIMONIALS */
+  .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
   .testi-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: 20px; padding: 2rem;
+    background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 2rem;
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .testi-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.07); }
-  .testi-stars { color: #F59E0B; font-size: 1rem; margin-bottom: 1rem; }
-  .testi-text {
-    font-size: 0.95rem; line-height: 1.7; color: var(--ink-soft);
-    font-style: italic; margin-bottom: 1.5rem;
-  }
+  .testi-stars { color: #F59E0B; margin-bottom: 1rem; }
+  .testi-text { font-size: 0.95rem; line-height: 1.7; color: var(--ink-soft); font-style: italic; margin-bottom: 1.5rem; }
   .testi-author { display: flex; align-items: center; gap: 0.75rem; }
-  .testi-avatar {
+  .testi-av {
     width: 42px; height: 42px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     font-size: 1.1rem; background: var(--tag-bg);
@@ -406,99 +294,252 @@
   .testi-name { font-weight: 600; font-size: 0.9rem; }
   .testi-role { font-size: 0.78rem; color: var(--ink-muted); }
 
-  /* ── CONTACT ── */
-  .contact { background: var(--white); }
-  .contact-inner {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 5rem; align-items: start;
-  }
-  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-group label {
-    font-size: 0.82rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.07em;
-    color: var(--ink-muted);
-  }
-  .form-group input, .form-group textarea, .form-group select {
-    background: var(--bg); border: 1.5px solid var(--border);
-    border-radius: 12px; padding: 0.85rem 1.1rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem; color: var(--ink);
-    outline: none; transition: border-color 0.2s;
-    resize: none;
-  }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-    border-color: var(--ink);
-  }
-  .form-group textarea { min-height: 130px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .submit-btn {
-    background: var(--ink); color: var(--white);
-    padding: 1rem 2.5rem; border-radius: 100px;
-    font-size: 1rem; font-weight: 600;
-    border: none; cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    align-self: flex-start;
-  }
-  .submit-btn:hover { background: var(--accent-bright); transform: translateY(-2px); }
-
-  .contact-info { padding-top: 1rem; }
+  /* CONTACT (homepage) */
+  .contact-section { background: var(--white); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
   .contact-info-item {
     display: flex; align-items: flex-start; gap: 1rem;
     padding: 1.25rem 0; border-bottom: 1px solid var(--border);
   }
-  .contact-info-icon {
-    width: 40px; height: 40px;
-    background: var(--tag-bg); border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; flex-shrink: 0;
+  .ci-icon {
+    width: 40px; height: 40px; background: var(--tag-bg); border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0;
   }
-  .contact-info-label { font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 0.2rem; }
-  .contact-info-val { font-weight: 500; font-size: 0.95rem; }
+  .ci-label { font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 0.2rem; }
+  .ci-val { font-weight: 500; font-size: 0.95rem; }
+  .ci-val a { color: var(--ink); text-decoration: none; }
+  .ci-val a:hover { color: var(--accent-bright); }
 
-  /* ── FOOTER ── */
+  /* ══════════════════════════════════════
+     PAGE 2 — SERVICES
+  ══════════════════════════════════════ */
+  .page-hero {
+    padding: 9rem 4rem 5rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+  .page-hero-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 0.6rem; }
+  .page-hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 800; letter-spacing: -0.03em; }
+  .page-hero p { color: var(--ink-soft); font-size: 1.1rem; line-height: 1.75; max-width: 600px; margin-top: 1rem; }
+
+  .services-full { padding: 5rem 4rem; }
+  .services-full-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .svc-full-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .svc-full-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--ink), var(--accent-bright));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+  }
+  .svc-full-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.09); }
+  .svc-full-card:hover::before { transform: scaleX(1); }
+  .sfc-icon { font-size: 2.5rem; margin-bottom: 1.2rem; }
+  .sfc-name { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; }
+  .sfc-desc { color: var(--ink-soft); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+  .sfc-list { list-style: none; margin-bottom: 1.5rem; }
+  .sfc-list li { font-size: 0.88rem; color: var(--ink-soft); padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
+  .sfc-list li::before { content: '✓ '; color: #22C55E; font-weight: 700; }
+  .sfc-price { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--accent-bright); }
+  .sfc-price span { font-size: 0.8rem; font-weight: 400; color: var(--ink-muted); }
+
+  /* ══════════════════════════════════════
+     PAGE 3 — PROJECTS
+  ══════════════════════════════════════ */
+  .all-projects { padding: 5rem 4rem; }
+  .filter-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .filter-btn {
+    padding: 0.5rem 1.2rem; border-radius: 100px; border: 1.5px solid var(--border);
+    background: transparent; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem; font-weight: 500; color: var(--ink-soft);
+    transition: all 0.2s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--ink); color: var(--white); border-color: var(--ink);
+  }
+  .all-projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .proj-full-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 20px;
+    overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .proj-full-card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,0.09); }
+  .pfc-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; }
+  .pfc-body { padding: 1.5rem; }
+  .pfc-cat { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 0.4rem; }
+  .pfc-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .pfc-desc { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.6; }
+  .pfc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.9rem; }
+  .pfc-link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    margin-top: 1rem; font-size: 0.82rem; font-weight: 600; color: var(--ink);
+    text-decoration: none; border-bottom: 1.5px solid var(--ink); padding-bottom: 0.1rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .pfc-link:hover { color: var(--accent-bright); border-color: var(--accent-bright); }
+
+  /* ══════════════════════════════════════
+     PAGE 4 — CLIENT FORM
+  ══════════════════════════════════════ */
+  .form-page { padding: 9rem 4rem 5rem; }
+  .form-page-inner { max-width: 820px; margin: 0 auto; }
+  .form-steps-bar { display: flex; align-items: center; gap: 0; margin-bottom: 3rem; }
+  .form-step-item { display: flex; align-items: center; flex: 1; }
+  .fsi-circle {
+    width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem;
+    background: var(--white); flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .fsi-circle.done { background: #22C55E; border-color: #22C55E; color: var(--white); }
+  .fsi-circle.current { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .fsi-label { font-size: 0.78rem; font-weight: 500; color: var(--ink-muted); margin-left: 0.6rem; white-space: nowrap; }
+  .fsi-label.current { color: var(--ink); font-weight: 600; }
+  .fsi-line { flex: 1; height: 2px; background: var(--border); margin: 0 0.75rem; }
+  .fsi-line.done { background: #22C55E; }
+
+  .form-panel { display: none; }
+  .form-panel.active { display: block; animation: fadeUp 0.4s ease both; }
+  .form-panel-title { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .form-panel-sub { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 2.5rem; }
+
+  .big-form { display: flex; flex-direction: column; gap: 1.4rem; }
+  .fg { display: flex; flex-direction: column; gap: 0.45rem; }
+  .fg label {
+    font-size: 0.82rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--ink-muted);
+  }
+  .fg input, .fg textarea, .fg select {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 0.9rem 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--ink);
+    outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--ink); }
+  .fg textarea { min-height: 140px; }
+  .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+  .service-options { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.9rem; margin-top: 0.3rem; }
+  .svc-opt {
+    border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem;
+    cursor: pointer; transition: all 0.2s; background: var(--white); text-align: left;
+  }
+  .svc-opt:hover { border-color: var(--ink-soft); }
+  .svc-opt.selected { border-color: var(--ink); background: var(--ink); color: var(--white); }
+  .svc-opt-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .svc-opt-name { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; }
+  .svc-opt-price { font-size: 0.75rem; opacity: 0.65; margin-top: 0.2rem; }
+
+  .budget-options { display: grid; grid-template-columns: repeat(2,1fr); gap: 0.8rem; }
+  .budget-opt {
+    border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem;
+    cursor: pointer; transition: all 0.2s; background: var(--white);
+  }
+  .budget-opt:hover { border-color: var(--ink-soft); }
+  .budget-opt.selected { border-color: var(--ink); background: var(--ink); color: var(--white); }
+  .budget-opt-range { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+  .budget-opt-label { font-size: 0.75rem; opacity: 0.65; margin-top: 0.2rem; }
+
+  .form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2.5rem; }
+  .form-nav-back {
+    background: none; border: 1.5px solid var(--border); border-radius: 100px;
+    padding: 0.8rem 1.8rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    cursor: pointer; font-weight: 500; color: var(--ink-soft);
+    transition: all 0.2s;
+  }
+  .form-nav-back:hover { border-color: var(--ink); color: var(--ink); }
+  .form-nav-next {
+    background: var(--ink); color: var(--white); border: none;
+    border-radius: 100px; padding: 0.85rem 2.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; transition: background 0.2s, transform 0.2s;
+  }
+  .form-nav-next:hover { background: var(--accent-bright); transform: translateY(-2px); }
+
+  .form-success {
+    text-align: center; padding: 4rem 2rem;
+    display: none;
+  }
+  .success-icon { font-size: 4rem; margin-bottom: 1.5rem; animation: bounceIn 0.6s ease; }
+  @keyframes bounceIn {
+    0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)}
+  }
+  .success-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+  .success-sub { color: var(--ink-soft); font-size: 1.05rem; line-height: 1.75; max-width: 500px; margin: 0 auto 2rem; }
+  .summary-box {
+    background: var(--white); border: 1px solid var(--border); border-radius: 20px;
+    padding: 2rem; text-align: left; max-width: 500px; margin: 0 auto 2rem;
+  }
+  .sum-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+  .sum-row:last-child { border: none; }
+  .sum-key { color: var(--ink-muted); }
+  .sum-val { font-weight: 600; }
+
+  /* ══════════════════════════════════════
+     PAGE 5 — ABOUT
+  ══════════════════════════════════════ */
+  .about-page { padding: 5rem 4rem; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-visual {
+    background: var(--white); border: 1px solid var(--border); border-radius: 24px;
+    padding: 3rem; text-align: center;
+  }
+  .about-avatar {
+    width: 120px; height: 120px; border-radius: 50%; background: var(--tag-bg);
+    margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .about-name { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; }
+  .about-role { color: var(--ink-muted); font-size: 0.9rem; margin-top: 0.3rem; }
+  .about-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1.5rem; }
+  .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2rem; }
+  .skill-item {
+    background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1.1rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .skill-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-bright); flex-shrink: 0; }
+  .skill-name { font-size: 0.88rem; font-weight: 500; }
+
+  /* FOOTER */
   footer {
     background: var(--ink); color: var(--white);
     padding: 2rem 4rem;
     display: flex; justify-content: space-between; align-items: center;
   }
-  footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-  footer a:hover { color: var(--white); }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-credit { font-size: 0.82rem; color: rgba(255,255,255,0.4); }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
+  .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; }
+  .footer-logo span { color: var(--accent-bright); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links button {
+    background: none; border: none; color: rgba(255,255,255,0.5);
+    cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    transition: color 0.2s;
   }
-  @keyframes fadeLeft {
-    from { opacity: 0; transform: translateX(30px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
+  .footer-links button:hover { color: var(--white); }
+  .footer-credit { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
 
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* ANIMATIONS */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeLeft { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
 
-  /* ── RESPONSIVE ── */
+  /* RESPONSIVE */
   @media (max-width: 900px) {
-    nav { padding: 1rem 2rem; }
-    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; }
     .hero-visual { display: none; }
-    section { padding: 4rem 2rem; }
-    .services-grid { grid-template-columns: 1fr; }
+    section, .services-full, .all-projects, .about-page, .form-page { padding: 4rem 1.5rem; }
+    .page-hero { padding: 7rem 1.5rem 3rem; }
+    .services-grid, .services-full-grid, .all-projects-grid, .testi-grid { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
     .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
     .process-steps { grid-template-columns: 1fr 1fr; }
-    .testimonials-grid { grid-template-columns: 1fr; }
-    .contact-inner { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-    .nav-links { display: none; }
+    .contact-grid, .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .nav-links { gap: 0; }
+    .nav-links button { font-size: 0.72rem; padding: 0.4rem 0.6rem; }
+    .service-options { grid-template-columns: 1fr 1fr; }
+    .fg-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -506,402 +547,894 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Alex<span>.</span>dev</a>
+  <div class="nav-logo" onclick="showPage('home')">EduBazar<span>.</span></div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+    <li><button onclick="showPage('home')" id="nav-home" class="active-nav">Home</button></li>
+    <li><button onclick="showPage('services')" id="nav-services">Services</button></li>
+    <li><button onclick="showPage('projects')" id="nav-projects">Projects</button></li>
+    <li><button onclick="showPage('about')" id="nav-about">About</button></li>
+    <li><button onclick="showPage('hire')" id="nav-hire" class="nav-cta">Hire Us</button></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      Available for new projects
-    </div>
-    <h1>I build <em>fast</em>,<br>beautiful<br>websites.</h1>
-    <p class="hero-sub">Full-stack web developer specializing in React, Node.js & modern UI/UX — turning ideas into high-performance digital products.</p>
-    <div class="hero-actions">
-      <a href="#projects" class="btn-primary">View My Work <span>↗</span></a>
-      <a href="#contact" class="btn-outline">Let's Talk</a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">45+</div>
-        <div class="stat-label">Projects Done</div>
-      </div>
-      <div>
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div>
-        <div class="stat-num">98%</div>
-        <div class="stat-label">Client Satisfaction</div>
-      </div>
-    </div>
-  </div>
+<!-- ═══════════ PAGE: HOME ═══════════ -->
+<div class="page active" id="page-home">
 
-  <div class="hero-visual">
-    <div class="hero-card">
-      <div class="hero-card-top">
-        <div class="hero-card-icon">⚡</div>
-        <div>
-          <div class="hero-card-title">Performance Score</div>
-          <div class="hero-card-sub">All projects score 95+</div>
-        </div>
-      </div>
-      <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:var(--ink-muted); margin-bottom: 0.4rem;">
-        <span>PageSpeed Score</span><span style="font-weight:600; color:var(--ink)">98/100</span>
-      </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:98%"></div></div>
-    </div>
-
-    <div class="hero-card-row">
-      <div class="mini-card">
-        <div class="mini-card-num">45+</div>
-        <div class="mini-card-label">Projects Delivered</div>
-      </div>
-      <div class="mini-card">
-        <div class="mini-card-num">⭐ 5.0</div>
-        <div class="mini-card-label">Average Rating</div>
-      </div>
-    </div>
-
-    <div class="hero-card">
-      <div style="font-size:0.78rem; color:var(--ink-muted); margin-bottom:0.6rem">TECH STACK</div>
-      <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-        <span class="tag" style="font-size:0.78rem">React</span>
-        <span class="tag" style="font-size:0.78rem">Node.js</span>
-        <span class="tag" style="font-size:0.78rem">TypeScript</span>
-        <span class="tag" style="font-size:0.78rem">Next.js</span>
-        <span class="tag" style="font-size:0.78rem">MongoDB</span>
-        <span class="tag" style="font-size:0.78rem">Tailwind</span>
-        <span class="tag" style="font-size:0.78rem">PostgreSQL</span>
-        <span class="tag" style="font-size:0.78rem">AWS</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <div class="reveal">
-    <div class="section-label">What I Do</div>
-    <h2 class="section-title">Services I Offer</h2>
-    <p class="section-sub">From concept to deployment — I handle everything to build your digital product the right way.</p>
-  </div>
-
-  <div class="services-grid reveal">
-    <div class="service-card">
-      <div class="service-num">01</div>
-      <div class="service-icon">🖥️</div>
-      <div class="service-name">Web Development</div>
-      <p class="service-desc">Custom websites built from scratch with clean code, optimized for speed and scalability.</p>
-      <div class="service-tags">
-        <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node.js</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">02</div>
-      <div class="service-icon">🛍️</div>
-      <div class="service-name">E-Commerce Solutions</div>
-      <p class="service-desc">Full-featured online stores with payment integration, inventory, and admin dashboards.</p>
-      <div class="service-tags">
-        <span class="tag">Razorpay</span><span class="tag">Stripe</span><span class="tag">WooCommerce</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">03</div>
-      <div class="service-icon">🤖</div>
-      <div class="service-name">AI-Powered Apps</div>
-      <p class="service-desc">Integrate cutting-edge AI into your product — chatbots, recommendation engines, automation.</p>
-      <div class="service-tags">
-        <span class="tag">Claude API</span><span class="tag">OpenAI</span><span class="tag">LangChain</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">04</div>
-      <div class="service-icon">📱</div>
-      <div class="service-name">Responsive UI/UX</div>
-      <p class="service-desc">Pixel-perfect, mobile-first interfaces that delight users and convert visitors into customers.</p>
-      <div class="service-tags">
-        <span class="tag">Figma</span><span class="tag">Tailwind</span><span class="tag">Framer</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">05</div>
-      <div class="service-icon">🗄️</div>
-      <div class="service-name">Backend & APIs</div>
-      <p class="service-desc">Robust REST/GraphQL APIs, database design, authentication systems and server infrastructure.</p>
-      <div class="service-tags">
-        <span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span>
-      </div>
-    </div>
-    <div class="service-card">
-      <div class="service-num">06</div>
-      <div class="service-icon">🚀</div>
-      <div class="service-name">Deployment & SEO</div>
-      <p class="service-desc">Production-ready hosting setup with CI/CD, SSL, domain config, and on-page SEO optimization.</p>
-      <div class="service-tags">
-        <span class="tag">Netlify</span><span class="tag">Vercel</span><span class="tag">AWS</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="projects-header reveal">
+  <!-- HERO -->
+  <section class="hero">
     <div>
-      <div class="section-label">My Work</div>
-      <h2 class="section-title">Featured Projects</h2>
+      <div class="hero-badge"><span class="dot"></span> Available for new projects</div>
+      <h1>We build <em>fast</em>,<br>beautiful<br>websites.</h1>
+      <p class="hero-sub">EduBazar is a full-stack web development agency — building high-performance digital products for businesses across India and beyond.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('hire')">Start a Project ↗</button>
+        <button class="btn-outline" onclick="showPage('projects')">View Our Work</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">45+</div><div class="stat-label">Projects Done</div></div>
+        <div><div class="stat-num">3+</div><div class="stat-label">Years Experience</div></div>
+        <div><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
+      </div>
     </div>
-    <a href="#contact" class="btn-outline">See All Work ↗</a>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-top">
+          <div class="hc-icon">⚡</div>
+          <div><div class="hc-title">Performance Score</div><div class="hc-sub">All projects score 95+</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--ink-muted);margin-bottom:0.4rem">
+          <span>PageSpeed Score</span><span style="font-weight:600;color:var(--ink)">98/100</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:98%"></div></div>
+      </div>
+      <div class="hero-card-row">
+        <div class="mini-card"><div class="mini-num">45+</div><div class="mini-label">Projects Delivered</div></div>
+        <div class="mini-card"><div class="mini-num">⭐ 5.0</div><div class="mini-label">Average Rating</div></div>
+      </div>
+      <div class="hero-card">
+        <div style="font-size:0.75rem;color:var(--ink-muted);margin-bottom:0.7rem;text-transform:uppercase;letter-spacing:0.08em">Tech Stack</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.45rem">
+          <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">TypeScript</span>
+          <span class="tag">Next.js</span><span class="tag">MongoDB</span><span class="tag">Tailwind</span>
+          <span class="tag">Razorpay</span><span class="tag">AWS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW -->
+  <section class="services" id="services-home">
+    <div class="reveal">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-sub">From concept to deployment — we handle everything to build your digital product the right way.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="svc-num">01</div><div class="svc-icon">🖥️</div>
+        <div class="svc-name">Web Development</div>
+        <p class="svc-desc">Custom websites built from scratch with clean code, optimized for speed and scalability.</p>
+        <div class="svc-tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node.js</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">02</div><div class="svc-icon">🛍️</div>
+        <div class="svc-name">E-Commerce Solutions</div>
+        <p class="svc-desc">Full-featured online stores with payment integration, inventory, and admin dashboards.</p>
+        <div class="svc-tags"><span class="tag">Razorpay</span><span class="tag">Stripe</span><span class="tag">WooCommerce</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">03</div><div class="svc-icon">🤖</div>
+        <div class="svc-name">AI-Powered Apps</div>
+        <p class="svc-desc">Integrate cutting-edge AI into your product — chatbots, recommendation engines, automation.</p>
+        <div class="svc-tags"><span class="tag">Claude API</span><span class="tag">OpenAI</span><span class="tag">LangChain</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">04</div><div class="svc-icon">📱</div>
+        <div class="svc-name">Responsive UI/UX</div>
+        <p class="svc-desc">Pixel-perfect, mobile-first interfaces that delight users and convert visitors to customers.</p>
+        <div class="svc-tags"><span class="tag">Figma</span><span class="tag">Tailwind</span><span class="tag">Framer</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">05</div><div class="svc-icon">🗄️</div>
+        <div class="svc-name">Backend & APIs</div>
+        <p class="svc-desc">Robust REST APIs, database design, auth systems, and server infrastructure.</p>
+        <div class="svc-tags"><span class="tag">Express</span><span class="tag">MongoDB</span><span class="tag">PostgreSQL</span></div>
+      </div>
+      <div class="service-card">
+        <div class="svc-num">06</div><div class="svc-icon">🚀</div>
+        <div class="svc-name">Deployment & SEO</div>
+        <p class="svc-desc">Production-ready hosting with CI/CD, SSL, domain config, and on-page SEO.</p>
+        <div class="svc-tags"><span class="tag">Netlify</span><span class="tag">Vercel</span><span class="tag">AWS</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem" class="reveal">
+      <button class="btn-primary" onclick="showPage('services')">View All Services & Pricing ↗</button>
+    </div>
+  </section>
+
+  <!-- PROJECTS PREVIEW -->
+  <section id="projects-home">
+    <div class="projects-header reveal">
+      <div><div class="section-label">Our Work</div><h2 class="section-title">Featured Projects</h2></div>
+      <button class="btn-outline" onclick="showPage('projects')">See All Projects ↗</button>
+    </div>
+    <div class="projects-grid reveal">
+      <div class="project-card featured">
+        <div class="project-thumb thumb-1">🎓</div>
+        <div class="proj-info">
+          <div class="proj-cat">E-Learning Platform</div>
+          <div class="proj-name">EduBazar — Online Course Marketplace</div>
+          <p class="proj-desc">Full-featured e-learning platform with course catalog, PDF books section, Razorpay payment integration, and user auth. Built with React, TypeScript & Vite. Deployed on Netlify.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem">
+            <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Razorpay</span><span class="tag">Netlify</span>
+          </div>
+          <a class="proj-link" href="https://edubazar.shop" target="_blank">Visit Live Site <span>↗</span></a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-2">🏠</div>
+        <div class="proj-info">
+          <div class="proj-cat">AI-Powered Tool</div>
+          <div class="proj-name">GharAI — Interior Design App</div>
+          <p class="proj-desc">AI home interior design with Claude API integration, Amazon India affiliate links, and Asian Paints color palettes.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem">
+            <span class="tag">React</span><span class="tag">Claude API</span><span class="tag">Affiliate</span>
+          </div>
+          <span class="proj-link" onclick="showPage('projects')">View All Projects <span>↗</span></span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb thumb-3">👗</div>
+        <div class="proj-info">
+          <div class="proj-cat">E-Commerce CMS</div>
+          <div class="proj-name">TrendLoom — Fashion Store CMS</div>
+          <p class="proj-desc">Single-file fashion ecommerce CMS with admin dashboard, live store preview, SEO tools & coupon system.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem">
+            <span class="tag">HTML/CSS/JS</span><span class="tag">LocalStorage</span><span class="tag">CMS</span>
+          </div>
+          <span class="proj-link" onclick="showPage('projects')">View All Projects <span>↗</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="section-label">How We Work</div>
+      <h2 class="section-title">Our Development Process</h2>
+      <p class="section-sub" style="margin:1rem auto 0">A clear, structured approach that keeps projects on time and clients informed.</p>
+    </div>
+    <div class="process-steps reveal">
+      <div class="step"><div class="step-circle">01</div><div class="step-name">Discovery</div><p class="step-desc">Understanding your goals, audience, and technical requirements in detail.</p></div>
+      <div class="step"><div class="step-circle">02</div><div class="step-name">Design</div><p class="step-desc">Wireframes and UI mockups reviewed and approved before any code is written.</p></div>
+      <div class="step"><div class="step-circle">03</div><div class="step-name">Development</div><p class="step-desc">Clean, well-documented code built in weekly sprints with live progress updates.</p></div>
+      <div class="step"><div class="step-circle">04</div><div class="step-name">Launch</div><p class="step-desc">Testing, deployment, SEO setup, and 30-day post-launch support included.</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="section-label">Client Reviews</div>
+      <h2 class="section-title">What Our Clients Say</h2>
+    </div>
+    <div class="testi-grid reveal">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"EduBazar delivered our e-commerce website 2 days ahead of schedule. The code quality is outstanding and the site loads incredibly fast. Highly recommend!"</p>
+        <div class="testi-author"><div class="testi-av">R</div><div><div class="testi-name">Rahul Sharma</div><div class="testi-role">Founder, FashionHub</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The AI integration EduBazar built for us completely transformed our workflow. Smart, responsive, and exactly what we needed. Will definitely work together again."</p>
+        <div class="testi-author"><div class="testi-av">P</div><div><div class="testi-name">Priya Mehta</div><div class="testi-role">CTO, StartupIndia</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Professional, communicative, and technically brilliant. Our learning platform now handles thousands of students daily without any issues."</p>
+        <div class="testi-author"><div class="testi-av">A</div><div><div class="testi-name">Ankit Verma</div><div class="testi-role">Director, EduVenture</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Build Something Great</h2>
+      <p class="section-sub">Ready to start? Reach out directly or fill our project form.</p>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <div class="contact-info-item">
+          <div class="ci-icon">📧</div>
+          <div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:edubazarshop@gmail.com">edubazarshop@gmail.com</a></div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">📞</div>
+          <div><div class="ci-label">Phone / WhatsApp</div><div class="ci-val"><a href="tel:+919759131256">+91 97591 31256</a></div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">💬</div>
+          <div><div class="ci-label">WhatsApp</div><div class="ci-val"><a href="https://wa.me/919759131256" target="_blank">Chat on WhatsApp →</a></div></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="ci-icon">📍</div>
+          <div><div class="ci-label">Location</div><div class="ci-val">India (Remote Worldwide)</div></div>
+        </div>
+        <div class="contact-info-item" style="border:none">
+          <div class="ci-icon">⏱️</div>
+          <div><div class="ci-label">Response Time</div><div class="ci-val">Within 24 hours</div></div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <button class="btn-primary" onclick="showPage('hire')">Fill Project Form ↗</button>
+        </div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:24px;padding:2.5rem">
+        <h3 style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1.5rem">Quick Message</h3>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <input id="qname" type="text" placeholder="Your Name" style="background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:0.85rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none">
+          <input id="qphone" type="tel" placeholder="Phone / WhatsApp Number" style="background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:0.85rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none">
+          <input id="qemail" type="email" placeholder="Email Address" style="background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:0.85rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none">
+          <textarea id="qmsg" placeholder="Tell us about your project..." style="background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:0.85rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;resize:none;min-height:110px"></textarea>
+          <button id="qsend-btn" class="btn-primary" style="align-self:flex-start" onclick="sendQuickMsg()">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">EduBazar<span>.</span></div>
+    <div class="footer-links">
+      <button onclick="showPage('home')">Home</button>
+      <button onclick="showPage('services')">Services</button>
+      <button onclick="showPage('projects')">Projects</button>
+      <button onclick="showPage('about')">About</button>
+      <button onclick="showPage('hire')">Hire Us</button>
+    </div>
+    <div class="footer-credit">© 2025 EduBazar. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ═══════════ PAGE: SERVICES ═══════════ -->
+<div class="page" id="page-services">
+  <div class="page-hero">
+    <div class="page-hero-label">What We Offer</div>
+    <h1 class="reveal" style="font-family:'Syne',sans-serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:800;letter-spacing:-0.03em">Our Services & Pricing</h1>
+    <p class="reveal" style="color:var(--ink-soft);font-size:1.1rem;line-height:1.75;max-width:600px;margin-top:1rem">Transparent pricing, no hidden costs. Every project comes with clean code, documentation, and 30-day support.</p>
   </div>
-
-  <div class="projects-grid reveal">
-    <div class="project-card featured">
-      <div class="project-thumb thumb-1">🛒</div>
-      <div class="project-info">
-        <div class="project-category">E-Learning Platform</div>
-        <div class="project-name">EduBazar — Online Course Marketplace</div>
-        <p class="project-desc">A full-featured e-learning platform with course catalog, PDF books section, Razorpay payment integration, and user authentication. Built with React, TypeScript, and Vite. Deployed on Netlify.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1rem;">
-          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Razorpay</span><span class="tag">Netlify</span>
-        </div>
-        <a href="#" class="project-link">View Case Study <span class="arrow">↗</span></a>
+  <div class="services-full">
+    <div class="services-full-grid">
+      <div class="svc-full-card reveal">
+        <div class="sfc-icon">🖥️</div>
+        <div class="sfc-name">Business Website</div>
+        <p class="sfc-desc">A professional multi-page website to establish your online presence and attract customers.</p>
+        <ul class="sfc-list">
+          <li>Up to 8 pages (Home, About, Services, Contact, etc.)</li>
+          <li>Mobile-responsive design</li>
+          <li>Contact form integration</li>
+          <li>Basic SEO setup</li>
+          <li>1 month free support</li>
+        </ul>
+        <div class="sfc-price">₹10,000 – ₹25,000 <span>/ one-time</span></div>
+        <button class="btn-primary" style="margin-top:1.2rem;font-size:0.88rem;padding:0.7rem 1.5rem" onclick="showPage('hire')">Get Quote →</button>
       </div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-thumb thumb-2">🏠</div>
-      <div class="project-info">
-        <div class="project-category">AI-Powered Tool</div>
-        <div class="project-name">GharAI — Interior Design App</div>
-        <p class="project-desc">AI home interior design tool with Claude API integration, Amazon affiliate product suggestions, and Asian Paints color palette recommendations.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1rem;">
-          <span class="tag">React</span><span class="tag">Claude API</span><span class="tag">Affiliate</span>
-        </div>
-        <a href="#" class="project-link">View Project <span class="arrow">↗</span></a>
+      <div class="svc-full-card reveal">
+        <div class="sfc-icon">🛍️</div>
+        <div class="sfc-name">E-Commerce Store</div>
+        <p class="sfc-desc">Full-featured online store with payment gateway, product management, and order tracking.</p>
+        <ul class="sfc-list">
+          <li>Product catalog & cart system</li>
+          <li>Razorpay / Stripe integration</li>
+          <li>Admin dashboard</li>
+          <li>Order management system</li>
+          <li>Coupon & discount system</li>
+        </ul>
+        <div class="sfc-price">₹25,000 – ₹70,000 <span>/ one-time</span></div>
+        <button class="btn-primary" style="margin-top:1.2rem;font-size:0.88rem;padding:0.7rem 1.5rem" onclick="showPage('hire')">Get Quote →</button>
       </div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-thumb thumb-3">👗</div>
-      <div class="project-info">
-        <div class="project-category">E-Commerce CMS</div>
-        <div class="project-name">TrendLoom — Fashion Store CMS</div>
-        <p class="project-desc">Single-file fashion ecommerce CMS with admin dashboard, live store preview, product management, SEO tools, coupon system — zero dependencies.</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1rem;">
-          <span class="tag">HTML/CSS/JS</span><span class="tag">LocalStorage</span><span class="tag">CMS</span>
-        </div>
-        <a href="#" class="project-link">View Project <span class="arrow">↗</span></a>
+      <div class="svc-full-card reveal">
+        <div class="sfc-icon">🎓</div>
+        <div class="sfc-name">E-Learning Platform</div>
+        <p class="sfc-desc">Complete LMS with courses, videos, quizzes, student dashboard, and payment flow.</p>
+        <ul class="sfc-list">
+          <li>Course & module management</li>
+          <li>Video hosting integration</li>
+          <li>PDF/books download system</li>
+          <li>Student progress tracking</li>
+          <li>Payment & enrollment flow</li>
+        </ul>
+        <div class="sfc-price">₹40,000 – ₹1,00,000 <span>/ one-time</span></div>
+        <button class="btn-primary" style="margin-top:1.2rem;font-size:0.88rem;padding:0.7rem 1.5rem" onclick="showPage('hire')">Get Quote →</button>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="process" id="process">
-  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto;">
-    <div class="section-label">How I Work</div>
-    <h2 class="section-title">My Development Process</h2>
-    <p class="section-sub" style="margin:1rem auto 0;">A clear, structured approach that keeps projects on time and clients informed.</p>
-  </div>
-  <div class="process-steps reveal">
-    <div class="step">
-      <div class="step-circle">01</div>
-      <div class="step-name">Discovery</div>
-      <p class="step-desc">Understanding your goals, target audience, and technical requirements in detail.</p>
-    </div>
-    <div class="step">
-      <div class="step-circle">02</div>
-      <div class="step-name">Design</div>
-      <p class="step-desc">Wireframes and UI mockups reviewed and approved before any code is written.</p>
-    </div>
-    <div class="step">
-      <div class="step-circle">03</div>
-      <div class="step-name">Development</div>
-      <p class="step-desc">Clean, well-documented code built in weekly sprints with live progress updates.</p>
-    </div>
-    <div class="step">
-      <div class="step-circle">04</div>
-      <div class="step-name">Launch</div>
-      <p class="step-desc">Testing, deployment, SEO setup, and 30-day post-launch support included.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto;">
-    <div class="section-label">Client Reviews</div>
-    <h2 class="section-title">What Clients Say</h2>
-  </div>
-  <div class="testimonials-grid reveal">
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"Alex delivered our e-commerce website 2 days ahead of schedule. The code quality is outstanding and the site loads incredibly fast. Highly recommend!"</p>
-      <div class="testi-author">
-        <div class="testi-avatar">R</div>
-        <div>
-          <div class="testi-name">Rahul Sharma</div>
-          <div class="testi-role">Founder, FashionHub</div>
-        </div>
+      <div class="svc-full-card reveal">
+        <div class="sfc-icon">🤖</div>
+        <div class="sfc-name">AI-Powered App</div>
+        <p class="sfc-desc">Custom AI tools, chatbots, and automation systems powered by latest AI APIs.</p>
+        <ul class="sfc-list">
+          <li>Claude / OpenAI / Gemini integration</li>
+          <li>Custom trained workflows</li>
+          <li>Chat interface & history</li>
+          <li>API backend & rate limiting</li>
+          <li>Monetization setup</li>
+        </ul>
+        <div class="sfc-price">₹20,000 – ₹80,000 <span>/ one-time</span></div>
+        <button class="btn-primary" style="margin-top:1.2rem;font-size:0.88rem;padding:0.7rem 1.5rem" onclick="showPage('hire')">Get Quote →</button>
       </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"The AI integration Alex built for us completely transformed our workflow. Smart, responsive, and exactly what we needed. Will definitely work together again."</p>
-      <div class="testi-author">
-        <div class="testi-avatar">P</div>
-        <div>
-          <div class="testi-name">Priya Mehta</div>
-          <div class="testi-role">CTO, StartupIndia</div>
-        </div>
+      <div class="svc-full-card reveal">
+        <div class="sfc-icon">📱</div>
+        <div class="sfc-name">UI/UX Design</div>
+        <p class="sfc-desc">Beautiful, conversion-focused interfaces designed in Figma with handoff-ready assets.</p>
+        <ul class="sfc-list">
+          <li>Figma wireframes & mockups</li>
+          <li>Component library</li>
+          <li>Mobile & desktop layouts</li>
+          <li>Prototype & user flow</li>
+          <li>Dev-ready export</li>
+        </ul>
+        <div class="sfc-price">₹8,000 – ₹30,000 <span>/ one-time</span></div>
+        <button class="btn-primary" style="margin-top:1.2rem;font-size:0.88rem;padding:0.7rem 1.5rem" onclick="showPage('hire')">Get Quote →</button>
       </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"Professional, communicative, and technically brilliant. Our learning platform now handles thousands of students daily without any issues."</p>
-      <div class="testi-author">
-        <div class="testi-avatar">A</div>
-        <div>
-          <div class="testi-name">Ankit Verma</div>
-          <div class="testi-role">Director, EduVenture</div>
-        </div>
+      <div class="svc-full-card reveal">
+        <div class="sfc-icon">🔧</div>
+        <div class="sfc-name">Maintenance & Support</div>
+        <p class="sfc-desc">Monthly retainer for bug fixes, updates, performance monitoring, and new feature additions.</p>
+        <ul class="sfc-list">
+          <li>Bug fixes & updates</li>
+          <li>Performance monitoring</li>
+          <li>Security patches</li>
+          <li>Content updates</li>
+          <li>Priority WhatsApp support</li>
+        </ul>
+        <div class="sfc-price">₹3,000 – ₹10,000 <span>/ month</span></div>
+        <button class="btn-primary" style="margin-top:1.2rem;font-size:0.88rem;padding:0.7rem 1.5rem" onclick="showPage('hire')">Get Quote →</button>
       </div>
     </div>
   </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <div class="reveal">
-    <div class="section-label">Get In Touch</div>
-    <h2 class="section-title">Start Your Project</h2>
-    <p class="section-sub">Have an idea? Tell me about it and I'll get back to you within 24 hours.</p>
-  </div>
-  <div class="contact-inner reveal" style="margin-top:3rem;">
-    <div class="contact-form">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" placeholder="Rahul Sharma">
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="rahul@example.com">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Project Type</label>
-        <select>
-          <option>Select a service...</option>
-          <option>Web Development</option>
-          <option>E-Commerce Store</option>
-          <option>AI-Powered App</option>
-          <option>UI/UX Design</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Budget Range</label>
-        <select>
-          <option>Select budget...</option>
-          <option>₹10,000 – ₹30,000</option>
-          <option>₹30,000 – ₹75,000</option>
-          <option>₹75,000 – ₹1,50,000</option>
-          <option>₹1,50,000+</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Project Details</label>
-        <textarea placeholder="Tell me about your project goals, timeline, and any specific requirements..."></textarea>
-      </div>
-      <button class="submit-btn">Send Message →</button>
+  <footer>
+    <div class="footer-logo">EduBazar<span>.</span></div>
+    <div class="footer-links">
+      <button onclick="showPage('home')">Home</button><button onclick="showPage('services')">Services</button>
+      <button onclick="showPage('projects')">Projects</button><button onclick="showPage('hire')">Hire Us</button>
     </div>
+    <div class="footer-credit">© 2025 EduBazar. All rights reserved.</div>
+  </footer>
+</div>
 
-    <div class="contact-info">
-      <h3 style="font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:700; margin-bottom:0.5rem;">Let's build something great together.</h3>
-      <p style="color:var(--ink-soft); font-size:0.95rem; line-height:1.7; margin-bottom:1.5rem;">I'm currently available for freelance work. Response time is typically within a few hours.</p>
-
-      <div class="contact-info-item">
-        <div class="contact-info-icon">📧</div>
-        <div>
-          <div class="contact-info-label">Email</div>
-          <div class="contact-info-val">alex@webdev.com</div>
+<!-- ═══════════ PAGE: PROJECTS ═══════════ -->
+<div class="page" id="page-projects">
+  <div class="page-hero">
+    <div class="page-hero-label">Our Portfolio</div>
+    <h1 class="reveal" style="font-family:'Syne',sans-serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:800;letter-spacing:-0.03em">Projects We've Built</h1>
+    <p class="reveal" style="color:var(--ink-soft);font-size:1.1rem;line-height:1.75;max-width:600px;margin-top:1rem">Real products, real results. Every project is built with care, clean code, and a focus on performance.</p>
+  </div>
+  <div class="all-projects">
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all',this)">All Projects</button>
+      <button class="filter-btn" onclick="filterProjects('ecommerce',this)">E-Commerce</button>
+      <button class="filter-btn" onclick="filterProjects('elearning',this)">E-Learning</button>
+      <button class="filter-btn" onclick="filterProjects('ai',this)">AI Tools</button>
+      <button class="filter-btn" onclick="filterProjects('web',this)">Websites</button>
+    </div>
+    <div class="all-projects-grid" id="projects-grid">
+      <div class="proj-full-card reveal" data-cat="elearning">
+        <div class="pfc-thumb thumb-1">🎓</div>
+        <div class="pfc-body">
+          <div class="pfc-cat">E-Learning Platform</div>
+          <div class="pfc-name">EduBazar — Course Marketplace</div>
+          <p class="pfc-desc">Full LMS with courses, PDF books, Razorpay payments, user auth. Built with React + TypeScript.</p>
+          <div class="pfc-tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Razorpay</span></div>
+          <a class="pfc-link" href="https://edubazar.shop" target="_blank">Visit Live ↗</a>
         </div>
       </div>
-      <div class="contact-info-item">
-        <div class="contact-info-icon">📞</div>
-        <div>
-          <div class="contact-info-label">Phone / WhatsApp</div>
-          <div class="contact-info-val">+91 98765 43210</div>
+      <div class="proj-full-card reveal" data-cat="ai">
+        <div class="pfc-thumb thumb-2">🏠</div>
+        <div class="pfc-body">
+          <div class="pfc-cat">AI Tool</div>
+          <div class="pfc-name">GharAI — Interior Design App</div>
+          <p class="pfc-desc">AI-powered home interior design with Claude API, Amazon affiliate links & Asian Paints colors.</p>
+          <div class="pfc-tags"><span class="tag">React</span><span class="tag">Claude API</span><span class="tag">Affiliate</span></div>
         </div>
       </div>
-      <div class="contact-info-item">
-        <div class="contact-info-icon">📍</div>
-        <div>
-          <div class="contact-info-label">Location</div>
-          <div class="contact-info-val">India (Remote Worldwide)</div>
+      <div class="proj-full-card reveal" data-cat="ecommerce">
+        <div class="pfc-thumb thumb-3">👗</div>
+        <div class="pfc-body">
+          <div class="pfc-cat">E-Commerce CMS</div>
+          <div class="pfc-name">TrendLoom — Fashion Store CMS</div>
+          <p class="pfc-desc">Zero-dependency single-file fashion CMS with admin dashboard, SEO manager & coupon system.</p>
+          <div class="pfc-tags"><span class="tag">HTML/CSS/JS</span><span class="tag">LocalStorage</span></div>
         </div>
       </div>
-      <div class="contact-info-item" style="border:none;">
-        <div class="contact-info-icon">⏱️</div>
-        <div>
-          <div class="contact-info-label">Response Time</div>
-          <div class="contact-info-val">Within 24 hours</div>
+      <div class="proj-full-card reveal" data-cat="web">
+        <div class="pfc-thumb" style="background:linear-gradient(135deg,#FFF8EE,#FFE8CC)">🏪</div>
+        <div class="pfc-body">
+          <div class="pfc-cat">Business Website</div>
+          <div class="pfc-name">Local Business Portfolio</div>
+          <p class="pfc-desc">Clean, fast portfolio website for a local business with contact form, services, and Google Maps.</p>
+          <div class="pfc-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+        </div>
+      </div>
+      <div class="proj-full-card reveal" data-cat="ecommerce">
+        <div class="pfc-thumb" style="background:linear-gradient(135deg,#F0F8FF,#D0E8FF)">📦</div>
+        <div class="pfc-body">
+          <div class="pfc-cat">E-Commerce</div>
+          <div class="pfc-name">Product Catalogue Store</div>
+          <p class="pfc-desc">Razorpay-integrated product store with category filters, cart, and WhatsApp order support.</p>
+          <div class="pfc-tags"><span class="tag">React</span><span class="tag">Razorpay</span><span class="tag">Node.js</span></div>
+        </div>
+      </div>
+      <div class="proj-full-card reveal" data-cat="ai">
+        <div class="pfc-thumb" style="background:linear-gradient(135deg,#F8F0FF,#E8D0FF)">✍️</div>
+        <div class="pfc-body">
+          <div class="pfc-cat">AI Tool</div>
+          <div class="pfc-name">AI Content Generator</div>
+          <p class="pfc-desc">Blog post and social media content generator powered by Claude API with tone and length controls.</p>
+          <div class="pfc-tags"><span class="tag">React</span><span class="tag">Claude API</span><span class="tag">Tailwind</span></div>
         </div>
       </div>
     </div>
   </div>
-</section>
+  <footer>
+    <div class="footer-logo">EduBazar<span>.</span></div>
+    <div class="footer-links">
+      <button onclick="showPage('home')">Home</button><button onclick="showPage('services')">Services</button>
+      <button onclick="showPage('hire')">Hire Us</button>
+    </div>
+    <div class="footer-credit">© 2025 EduBazar. All rights reserved.</div>
+  </footer>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <a href="#" class="nav-logo" style="color:rgba(255,255,255,0.9)">Alex<span style="color:var(--accent-bright)">.</span>dev</a>
-  <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+<!-- ═══════════ PAGE: ABOUT ═══════════ -->
+<div class="page" id="page-about">
+  <div class="page-hero">
+    <div class="page-hero-label">Who We Are</div>
+    <h1 class="reveal" style="font-family:'Syne',sans-serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:800;letter-spacing:-0.03em">About EduBazar</h1>
+    <p class="reveal" style="color:var(--ink-soft);font-size:1.1rem;line-height:1.75;max-width:600px;margin-top:1rem">We're a passionate team of developers and designers building digital products that actually work — on time, on budget, and built to last.</p>
   </div>
-  <div class="footer-credit">© 2025 All rights reserved.</div>
-</footer>
+  <div class="about-page">
+    <div class="about-grid reveal">
+      <div>
+        <div class="section-label">Our Story</div>
+        <h2 class="section-title" style="font-size:2rem">Building the web, one project at a time.</h2>
+        <p style="color:var(--ink-soft);font-size:1rem;line-height:1.8;margin-top:1.2rem">EduBazar started as a personal e-learning platform and grew into a full-service web development agency. We've been building websites and apps for businesses across India since 2022.</p>
+        <p style="color:var(--ink-soft);font-size:1rem;line-height:1.8;margin-top:1rem">We specialize in React, Node.js, and AI-powered tools — always focused on performance, clean code, and real business results for our clients.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem">
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800">45+</div>
+            <div style="font-size:0.8rem;color:var(--ink-muted);margin-top:0.2rem;text-transform:uppercase;letter-spacing:0.06em">Projects Completed</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800">3+</div>
+            <div style="font-size:0.8rem;color:var(--ink-muted);margin-top:0.2rem;text-transform:uppercase;letter-spacing:0.06em">Years Experience</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800">⭐ 5.0</div>
+            <div style="font-size:0.8rem;color:var(--ink-muted);margin-top:0.2rem;text-transform:uppercase;letter-spacing:0.06em">Average Rating</div>
+          </div>
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;text-align:center">
+            <div style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:800">24h</div>
+            <div style="font-size:0.8rem;color:var(--ink-muted);margin-top:0.2rem;text-transform:uppercase;letter-spacing:0.06em">Response Time</div>
+          </div>
+        </div>
+        <div style="margin-top:2rem">
+          <button class="btn-primary" onclick="showPage('hire')">Start a Project With Us →</button>
+        </div>
+      </div>
+      <div>
+        <div class="about-visual">
+          <div class="about-avatar">🛒</div>
+          <div class="about-name">EduBazar</div>
+          <div class="about-role">Web Development Agency · India</div>
+          <div class="about-badges" style="margin-top:1rem">
+            <span class="tag">Full-Stack Dev</span>
+            <span class="tag">AI Integration</span>
+            <span class="tag">UI/UX Design</span>
+            <span class="tag">E-Commerce</span>
+          </div>
+          <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+            <div style="font-size:0.8rem;color:var(--ink-muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.06em">Contact</div>
+            <div style="font-size:0.9rem;margin-bottom:0.5rem">📧 <a href="mailto:edubazarshop@gmail.com" style="color:var(--ink);text-decoration:none">edubazarshop@gmail.com</a></div>
+            <div style="font-size:0.9rem;margin-bottom:0.5rem">📞 <a href="tel:+919759131256" style="color:var(--ink);text-decoration:none">+91 97591 31256</a></div>
+            <div style="font-size:0.9rem">💬 <a href="https://wa.me/919759131256" target="_blank" style="color:var(--accent-bright);text-decoration:none;font-weight:600">WhatsApp Us →</a></div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem">
+          <div style="font-size:0.8rem;color:var(--ink-muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem">Skills & Technologies</div>
+          <div class="skill-grid">
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">React / Next.js</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">Node.js / Express</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">TypeScript</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">MongoDB / SQL</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">Tailwind CSS</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">AI / Claude API</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">Razorpay / Stripe</div></div>
+            <div class="skill-item"><div class="skill-dot"></div><div class="skill-name">Netlify / Vercel</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">EduBazar<span>.</span></div>
+    <div class="footer-links">
+      <button onclick="showPage('home')">Home</button><button onclick="showPage('services')">Services</button>
+      <button onclick="showPage('projects')">Projects</button><button onclick="showPage('hire')">Hire Us</button>
+    </div>
+    <div class="footer-credit">© 2025 EduBazar. All rights reserved.</div>
+  </footer>
+</div>
 
+<!-- ═══════════ PAGE: HIRE (CLIENT FORM) ═══════════ -->
+<div class="page" id="page-hire">
+  <div class="form-page">
+    <div class="form-page-inner">
+      <div id="form-success" class="form-success">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">We Got Your Request!</div>
+        <p class="success-sub">Thank you for choosing EduBazar. We'll review your project details and get back to you within <strong>24 hours</strong> on WhatsApp or Email.</p>
+        <div class="summary-box" id="summary-box"></div>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <a href="https://wa.me/919759131256" target="_blank" class="btn-primary">💬 Chat on WhatsApp</a>
+          <button class="btn-outline" onclick="showPage('home')">Back to Home</button>
+        </div>
+      </div>
+
+      <div id="form-body">
+        <div style="margin-bottom:2rem">
+          <div class="section-label">Client Inquiry Form</div>
+          <h1 style="font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;letter-spacing:-0.03em">Tell Us About Your Project</h1>
+          <p style="color:var(--ink-soft);font-size:1rem;margin-top:0.75rem">Fill in the details below and we'll send you a custom quote within 24 hours.</p>
+        </div>
+
+        <!-- Steps Bar -->
+        <div class="form-steps-bar">
+          <div class="form-step-item">
+            <div class="fsi-circle current" id="sc1">1</div>
+            <div class="fsi-label current" id="sl1">Your Info</div>
+          </div>
+          <div class="fsi-line" id="line1"></div>
+          <div class="form-step-item">
+            <div class="fsi-circle" id="sc2">2</div>
+            <div class="fsi-label" id="sl2">Service</div>
+          </div>
+          <div class="fsi-line" id="line2"></div>
+          <div class="form-step-item">
+            <div class="fsi-circle" id="sc3">3</div>
+            <div class="fsi-label" id="sl3">Budget & Details</div>
+          </div>
+        </div>
+
+        <!-- STEP 1: Personal Info -->
+        <div class="form-panel active" id="step1">
+          <div class="form-panel-title">Your Details</div>
+          <div class="form-panel-sub">Let us know who you are so we can get back to you quickly.</div>
+          <div class="big-form">
+            <div class="fg-row">
+              <div class="fg"><label>Full Name *</label><input type="text" id="f-name" placeholder="Rahul Sharma"></div>
+              <div class="fg"><label>Phone / WhatsApp *</label><input type="tel" id="f-phone" placeholder="+91 98765 43210"></div>
+            </div>
+            <div class="fg"><label>Email Address *</label><input type="email" id="f-email" placeholder="you@gmail.com"></div>
+            <div class="fg-row">
+              <div class="fg">
+                <label>Business Type</label>
+                <select id="f-btype">
+                  <option value="">Select...</option>
+                  <option>Individual / Freelancer</option>
+                  <option>Small Business</option>
+                  <option>Startup</option>
+                  <option>Medium / Large Company</option>
+                  <option>NGO / Institution</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label>Location</label>
+                <input type="text" id="f-location" placeholder="City, State">
+              </div>
+            </div>
+            <div class="fg"><label>How Did You Find Us?</label>
+              <select id="f-source">
+                <option value="">Select...</option>
+                <option>Google Search</option>
+                <option>WhatsApp / Referral</option>
+                <option>Social Media</option>
+                <option>Freelance Platform</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-nav">
+              <div></div>
+              <button class="form-nav-next" onclick="nextStep(1)">Next: Choose Service →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Service Selection -->
+        <div class="form-panel" id="step2">
+          <div class="form-panel-title">What Do You Need?</div>
+          <div class="form-panel-sub">Select the service that best fits your project. You can choose multiple.</div>
+          <div class="service-options" id="svc-options">
+            <div class="svc-opt" onclick="toggleSvc(this,'Website')">
+              <div class="svc-opt-icon">🖥️</div>
+              <div class="svc-opt-name">Business Website</div>
+              <div class="svc-opt-price">₹10k – ₹25k</div>
+            </div>
+            <div class="svc-opt" onclick="toggleSvc(this,'E-Commerce Store')">
+              <div class="svc-opt-icon">🛍️</div>
+              <div class="svc-opt-name">E-Commerce Store</div>
+              <div class="svc-opt-price">₹25k – ₹70k</div>
+            </div>
+            <div class="svc-opt" onclick="toggleSvc(this,'E-Learning Platform')">
+              <div class="svc-opt-icon">🎓</div>
+              <div class="svc-opt-name">E-Learning Platform</div>
+              <div class="svc-opt-price">₹40k – ₹1L</div>
+            </div>
+            <div class="svc-opt" onclick="toggleSvc(this,'AI-Powered App')">
+              <div class="svc-opt-icon">🤖</div>
+              <div class="svc-opt-name">AI-Powered App</div>
+              <div class="svc-opt-price">₹20k – ₹80k</div>
+            </div>
+            <div class="svc-opt" onclick="toggleSvc(this,'UI/UX Design')">
+              <div class="svc-opt-icon">🎨</div>
+              <div class="svc-opt-name">UI/UX Design</div>
+              <div class="svc-opt-price">₹8k – ₹30k</div>
+            </div>
+            <div class="svc-opt" onclick="toggleSvc(this,'Maintenance')">
+              <div class="svc-opt-icon">🔧</div>
+              <div class="svc-opt-name">Maintenance</div>
+              <div class="svc-opt-price">₹3k – ₹10k/mo</div>
+            </div>
+          </div>
+          <div class="form-nav">
+            <button class="form-nav-back" onclick="prevStep(2)">← Back</button>
+            <button class="form-nav-next" onclick="nextStep(2)">Next: Budget & Details →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Budget & Details -->
+        <div class="form-panel" id="step3">
+          <div class="form-panel-title">Budget & Project Details</div>
+          <div class="form-panel-sub">Tell us more so we can give you the most accurate quote.</div>
+          <div class="big-form">
+            <div class="fg">
+              <label>Budget Range *</label>
+              <div class="budget-options" id="budget-options">
+                <div class="budget-opt" onclick="selectBudget(this,'₹10,000 – ₹30,000')">
+                  <div class="budget-opt-range">₹10,000 – ₹30,000</div>
+                  <div class="budget-opt-label">Small project / MVP</div>
+                </div>
+                <div class="budget-opt" onclick="selectBudget(this,'₹30,000 – ₹75,000')">
+                  <div class="budget-opt-range">₹30,000 – ₹75,000</div>
+                  <div class="budget-opt-label">Medium project</div>
+                </div>
+                <div class="budget-opt" onclick="selectBudget(this,'₹75,000 – ₹1,50,000')">
+                  <div class="budget-opt-range">₹75,000 – ₹1,50,000</div>
+                  <div class="budget-opt-label">Full-featured product</div>
+                </div>
+                <div class="budget-opt" onclick="selectBudget(this,'₹1,50,000+')">
+                  <div class="budget-opt-range">₹1,50,000+</div>
+                  <div class="budget-opt-label">Large / enterprise</div>
+                </div>
+              </div>
+            </div>
+            <div class="fg-row">
+              <div class="fg">
+                <label>Timeline</label>
+                <select id="f-timeline">
+                  <option value="">Select timeline...</option>
+                  <option>ASAP (rush job)</option>
+                  <option>Within 2 weeks</option>
+                  <option>1 month</option>
+                  <option>2–3 months</option>
+                  <option>Flexible</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label>Do you have a design ready?</label>
+                <select id="f-design">
+                  <option value="">Select...</option>
+                  <option>Yes, I have Figma/design</option>
+                  <option>Partial / rough idea</option>
+                  <option>No, need design too</option>
+                </select>
+              </div>
+            </div>
+            <div class="fg">
+              <label>Project Description *</label>
+              <textarea id="f-desc" placeholder="Describe your project in detail — what it should do, who will use it, any specific features you need, reference websites, etc."></textarea>
+            </div>
+            <div class="fg">
+              <label>Website / Reference Links (optional)</label>
+              <input type="text" id="f-ref" placeholder="https://example.com (comma separated)">
+            </div>
+            <div class="form-nav">
+              <button class="form-nav-back" onclick="prevStep(3)">← Back</button>
+              <button class="form-nav-next" onclick="submitForm()">Submit Inquiry ✓</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">EduBazar<span>.</span></div>
+    <div class="footer-links">
+      <button onclick="showPage('home')">Home</button>
+      <button onclick="showPage('services')">Services</button>
+      <button onclick="showPage('projects')">Projects</button>
+    </div>
+    <div class="footer-credit">© 2025 EduBazar. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
 <script>
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+  // ── Page navigation ──
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active-nav'));
+    const nb = document.getElementById('nav-' + id);
+    if (nb) nb.classList.add('active-nav');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // re-trigger reveals on new page
+    setTimeout(triggerReveals, 100);
+    // reset form if going to hire
+    if (id === 'hire') resetForm();
+  }
+
+  // ── Scroll reveal ──
+  function triggerReveals() {
+    const activePage = document.querySelector('.page.active');
+    if (!activePage) return;
+    const reveals = activePage.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => {
+      el.classList.remove('visible');
+      obs.observe(el);
+    });
+  }
+  triggerReveals();
+
+  // ── Project filter ──
+  function filterProjects(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.proj-full-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
       }
     });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  }
 
-  // Smooth nav link behavior
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  // ── Form state ──
+  let selectedServices = [];
+  let selectedBudget = '';
+
+  function resetForm() {
+    currentStep = 1;
+    selectedServices = [];
+    selectedBudget = '';
+    document.getElementById('form-body').style.display = '';
+    document.getElementById('form-success').style.display = 'none';
+    document.querySelectorAll('.svc-opt').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.budget-opt').forEach(o => o.classList.remove('selected'));
+    ['f-name','f-phone','f-email','f-btype','f-location','f-source','f-timeline','f-design','f-desc','f-ref'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
     });
-  });
+    showStep(1);
+  }
 
-  // Form submit animation
-  document.querySelector('.submit-btn').addEventListener('click', function() {
-    this.textContent = '✓ Message Sent!';
-    this.style.background = '#22C55E';
-    setTimeout(() => {
-      this.textContent = 'Send Message →';
-      this.style.background = '';
-    }, 3000);
-  });
+  let currentStep = 1;
+
+  function showStep(n) {
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('step' + i).classList.toggle('active', i === n);
+      const circle = document.getElementById('sc' + i);
+      const label = document.getElementById('sl' + i);
+      circle.classList.remove('current','done');
+      label.classList.remove('current');
+      if (i < n) { circle.classList.add('done'); circle.innerHTML = '✓'; }
+      else if (i === n) { circle.classList.add('current'); circle.innerHTML = i; label.classList.add('current'); }
+      else { circle.innerHTML = i; }
+      if (i < 3) {
+        document.getElementById('line' + i).classList.toggle('done', i < n);
+      }
+    }
+    currentStep = n;
+  }
+
+  function nextStep(from) {
+    if (from === 1) {
+      const name = document.getElementById('f-name').value.trim();
+      const phone = document.getElementById('f-phone').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      if (!name || !phone || !email) { alert('Please fill in Name, Phone, and Email.'); return; }
+    }
+    if (from === 2) {
+      if (selectedServices.length === 0) { alert('Please select at least one service.'); return; }
+    }
+    showStep(from + 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevStep(from) { showStep(from - 1); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  function toggleSvc(el, name) {
+    el.classList.toggle('selected');
+    if (el.classList.contains('selected')) { selectedServices.push(name); }
+    else { selectedServices = selectedServices.filter(s => s !== name); }
+  }
+
+  function selectBudget(el, val) {
+    document.querySelectorAll('.budget-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedBudget = val;
+  }
+
+  function submitForm() {
+    const desc = document.getElementById('f-desc').value.trim();
+    if (!selectedBudget) { alert('Please select a budget range.'); return; }
+    if (!desc) { alert('Please describe your project.'); return; }
+
+    const data = {
+      name: document.getElementById('f-name').value.trim(),
+      phone: document.getElementById('f-phone').value.trim(),
+      email: document.getElementById('f-email').value.trim(),
+      btype: document.getElementById('f-btype').value,
+      location: document.getElementById('f-location').value.trim(),
+      services: selectedServices.join(', '),
+      budget: selectedBudget,
+      timeline: document.getElementById('f-timeline').value,
+      design: document.getElementById('f-design').value,
+      desc: desc,
+      ref: document.getElementById('f-ref').value.trim(),
+    };
+
+    // Build summary
+    const rows = [
+      ['Name', data.name], ['Phone', data.phone], ['Email', data.email],
+      ['Services', data.services], ['Budget', data.budget], ['Timeline', data.timeline || 'Not specified']
+    ];
+    document.getElementById('summary-box').innerHTML = rows.map(r =>
+      `<div class="sum-row"><span class="sum-key">${r[0]}</span><span class="sum-val">${r[1]}</span></div>`
+    ).join('');
+
+    // Build WhatsApp message
+    const msg = `*New Project Inquiry — EduBazar*\n\nName: ${data.name}\nPhone: ${data.phone}\nEmail: ${data.email}\nBusiness: ${data.btype||'N/A'}\nLocation: ${data.location||'N/A'}\n\nServices: ${data.services}\nBudget: ${data.budget}\nTimeline: ${data.timeline||'Flexible'}\nDesign Ready: ${data.design||'N/A'}\n\nProject Description:\n${data.desc}\n\nReference: ${data.ref||'None'}`;
+
+    // Open WhatsApp
+    window.open(`https://wa.me/919759131256?text=${encodeURIComponent(msg)}`, '_blank');
+
+    // Show success
+    document.getElementById('form-body').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Quick message
+  function sendQuickMsg() {
+    const name = document.getElementById('qname').value.trim();
+    const phone = document.getElementById('qphone').value.trim();
+    const msg = document.getElementById('qmsg').value.trim();
+    if (!name || !msg) { alert('Please enter your name and message.'); return; }
+    const text = `Hi EduBazar! I'm ${name} (${phone}). ${msg}`;
+    window.open(`https://wa.me/919759131256?text=${encodeURIComponent(text)}`, '_blank');
+    const btn = document.getElementById('qsend-btn');
+    btn.textContent = '✓ Sent on WhatsApp!';
+    btn.style.background = '#22C55E';
+    setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; }, 4000);
+  }
 </script>
 </body>
 </html>
